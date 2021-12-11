@@ -1,7 +1,7 @@
 const inquirer = require('inquirer')
 require('colors')
 
-const preguntas = [
+const questions = [
     {
         type: 'list',
         name: 'opcion',
@@ -30,7 +30,7 @@ const inquirerMenu = async () => {
     console.log('Seleccione una opcion'.white)
     console.log('================================ \n'.green)
 
-    const { opcion } = await inquirer.prompt(preguntas)
+    const { opcion } = await inquirer.prompt(questions)
 
     return opcion;
 }
@@ -49,7 +49,7 @@ const pause = async () => {
     await inquirer.prompt(question)
 }
 
-const leerInput = async (msg) => {
+const readInput = async (msg) => {
 
     const question = [
         {
@@ -70,14 +70,14 @@ const leerInput = async (msg) => {
     return desc
 }
 
-const listadoTareasBorrar = async ( tareas = [] ) => {
-    const choices = tareas.map( (tarea, index) => {
+const showPlaces = async ( places = [] ) => {
+    const choices = places.map( (place, index) => {
         
         let idx = `${index+1}.`.green 
 
         return {
-            value: tarea.id,
-            name:  `${idx} ${tarea.desc}`
+            value: place.id,
+            name:  `${idx} ${place.name}`
         }
     })
 
@@ -86,16 +86,16 @@ const listadoTareasBorrar = async ( tareas = [] ) => {
         name: '0. '.green + 'Cancelar'
     })
 
-    const preguntas = [
+    const questions = [
         {
             type: 'list',
             name: 'id',
-            message: 'Cual tarea desea eliminar?',
+            message: 'Seleccion lugar: ',
             choices
         }
     ];
 
-    const { id } = await inquirer.prompt(preguntas)
+    const { id } = await inquirer.prompt(questions)
 
     return id;
 }
@@ -144,8 +144,9 @@ const mostrarListadoCheck = async ( tareas = [] ) => {
 module.exports = {
     inquirerMenu,
     pause,
-    leerInput,
-    listadoTareasBorrar,
+    readInput,
+    showPlaces,
+    
     confirmar,
     mostrarListadoCheck
 }
